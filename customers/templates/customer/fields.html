@@ -1,0 +1,137 @@
+<%namespace file="/base/uiHelpers.html" import="validate_errors"/>
+
+${form.csrf_token()}
+
+<ul data-tabs="tabs" class="tabs">
+	<li class="active"><a href="#general">General</a></li>
+	<li class=""><a href="#address">Address</a></li>
+	<li class=""><a href="#communication">Communication</a></li>
+	<li class=""><a href="#notes">Notes</a></li>
+</ul>
+
+<div class="tab-content" id="my-tab-content">
+	<div id="general" class="tab-pane active">
+		<div class="${'clearfix error' if form.errors_for('company_name') else 'clearfix'}">
+			<label for="company_name">Company Name</label>
+			<div class="input">
+				${form.text("company_name", class_="xlarge", maxlength="100")}
+				${validate_errors("company_name")}
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="category_id">Category</label>
+			<div class="input">
+			    ${form.select("category_id",
+					id="category_id",
+ 			        options=categories)}
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="contact_title">Title</label>
+			<div class="input">
+				${form.text("contact_title", class_="small", maxlength="50")}
+			</div>
+		</div>
+		<div class="${'clearfix error' if form.errors_for('contact_first_name') else 'clearfix'}">
+			<label for="contact_first_name">First Name</label>
+			<div class="input">
+				${form.text("contact_first_name", class_="xlarge", maxlength="50")}
+				${validate_errors("contact_first_name")}
+			</div>
+		</div>
+		<div class="${'clearfix error' if form.errors_for('contact_last_name') else 'clearfix'}">
+			<label for="contact_last_name">Last Name</label>
+			<div class="input">
+				${form.text("contact_last_name", class_="xlarge", maxlength="50")}
+				${validate_errors("contact_last_name")}
+			</div>
+		</div>
+	</div>
+	
+	<div id="address" class="tab-pane">
+		<div class="clearfix">
+			<label for="address">Address</label>
+			<div class="input">
+				${form.textarea("address", class_="xlarge", cols="40", rows="3")}
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="city">City</label>
+			<div class="input">
+				${form.text("city", class_="xlarge", maxlength="50")}
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="region">State/Province</label>
+			<div class="input">
+				${form.text("region", class_="xlarge", maxlength="50")}
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="postal_code">ZIP/Postal Code</label>
+			<div class="input">
+				${form.text("postal_code", class_="xlarge", maxlength="50")}
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="country_id">Country</label>
+			<div class="input">
+			    ${form.select("country_id", 
+			    	id="country_id",
+			        options=countries, 
+			        prompt="Select Country")}
+			</div>
+		</div>
+	</div>
+	
+	<div id="communication" class="tab-pane">
+		<div class="clearfix">
+			<label for="phone">Phone</label>
+			<div class="input">
+				${form.text("phone", class_="xlarge", maxlength="50")}
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="fax">Fax</label>
+			<div class="input">
+				${form.text("fax", class_="xlarge", maxlength="50")}
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="mobile">Mobile</label>
+			<div class="input">
+				${form.text("mobile", class_="xlarge", maxlength="50")}
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="email">E-Mail</label>
+			<div class="input">
+  				<div class="input-prepend">
+					<span class="add-on">@</span>
+					${form.text("email", class_="xlarge", maxlength="50", style="width: 244px;")}
+  				</div>
+			</div>
+  		</div>
+		<div class="clearfix">
+			<label for="homepage">Homepage</label>
+			<div class="input">
+				${form.text("homepage", class_="xlarge", maxlength="50")}
+			</div>
+		</div>
+		<div class="clearfix">
+			<label for="skype">Skype</label>
+			<div class="input">
+				${form.text("skype", class_="xlarge", maxlength="50")}
+			</div>
+		</div>
+    </div>
+	<div id="notes" class="tab-pane">
+		<div class="clearfix">
+			<label for="notes">Notes</label>
+			<div class="input">
+				${form.textarea("notes", class_="xlarge", cols="40", rows="10")}
+			</div>
+		</div>
+	</div>
+    
+</div>

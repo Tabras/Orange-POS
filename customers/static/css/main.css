@@ -1,0 +1,43 @@
+/* 
+ * main app css
+ */
+
+/* search box */
+.search-box {
+    display: inline-block;
+    height: 24px;
+    padding-left: 10px;
+    margin-right: 10px;
+    vertical-align: top;
+    width: 180px;
+}
+
+.search-box input {
+    background: url("/static/images/12/search.png") no-repeat scroll 5px center padding-box #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.33);
+    border-radius: 12px 12px 12px 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) inset, 0 1px 0 rgba(255, 255, 255, 0.33);
+    height: 20px;
+    padding: 5px 5px 0 20px;
+    width: 100%;
+}
+
+/* sortable table captions */
+.sortable th .current {
+	padding-right: 12px;
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+
+.sortable th .asc {
+	background-image: url("/static/images/12/up_arrow.gif");
+}
+
+.sortable th .desc {
+	background-image: url("/static/images/12/down_arrow.gif");
+}
+
+/* paginate */
+.pager {
+	float: right;
+}

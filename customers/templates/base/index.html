@@ -1,0 +1,160 @@
+## -*- coding:utf-8 -*-
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Customers App</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- jquery and bootstrap javascripts -->
+    <script src="${request.static_url('customers:static/js/jquery-1.7.min.js')}"></script>
+    <script src="${request.static_url('customers:static/js/bootstrap-alerts.js')}"></script>
+    <script src="${request.static_url('customers:static/js/bootstrap-modal.js')}"></script>
+    <script src="${request.static_url('customers:static/js/bootstrap-tabs.js')}"></script>
+    
+    <!-- not used in this project
+    <script src="/static/js/bootstrap-twipsy.js"></script>
+    <script src="/static/js/bootstrap-popover.js"></script>
+    <script src="/static/js/bootstrap-dropdown.js"></script>
+    <script src="/static/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/js/bootstrap-buttons.js"></script>
+    -->
+    
+	<link rel="stylesheet" href="${request.static_url('customers:static/css/bootstrap.css')}">    
+	<link rel="stylesheet" href="${request.static_url('customers:static/css/main.css')}">    
+
+    <style type="text/css">
+      /* Override some defaults */
+      html, body {
+        background-color: #eee;
+      }
+      body {
+        padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+      }
+      .container > footer p {
+        text-align: center; /* center align it with the container */
+      }
+      .container {
+        width: 820px; /* downsize our container to make the content feel a bit tighter 
+        				and more cohesive. NOTE: this removes two full columns from the 
+        				grid, meaning you only go to 14 columns and not 16. */
+      }
+
+      /* The white background content wrapper */
+      .container > .content {
+        background-color: #fff;
+        padding: 20px;
+        margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+        -webkit-border-radius: 0 0 6px 6px;
+           -moz-border-radius: 0 0 6px 6px;
+                border-radius: 0 0 6px 6px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                box-shadow: 0 1px 2px rgba(0,0,0,.15);
+      }
+
+      /* Page header tweaks */
+      .page-header {
+        background-color: #f5f5f5;
+        padding: 20px 20px 10px;
+        margin: -20px -20px 20px;
+        height: 40px;
+      }
+
+      /* Styles you shouldn't keep as they are for displaying this base example only */
+      .content .span14,
+      .content .span10,
+      .content {
+        min-height: 500px;
+      }
+      /* Give a quick and non-cross-browser friendly divider */
+      .content .span4 {
+        margin-left: 0;
+        padding-left: 19px;
+        border-left: 1px solid #eee;
+      }
+
+      .topbar .btn {
+        border: 0;
+      }
+    </style>
+	
+</head>
+<body>
+	<div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="${request.route_url('home')}">Customers App</a>
+          <ul class="nav">
+            <li class="active"><a href="${request.route_url('home')}">Home</a></li>
+            <li><a href="${request.route_url('customer_list')}">Customers</a></li>
+            <li><a href="${request.route_url('category_list')}">Categories</a></li>
+            <li><a href="${request.route_url('country_list')}">Countries</a></li>
+          </ul>
+          <p class="pull-right">Logged in as <a href="#">Admin</a></p>
+        </div>
+      </div>
+    </div>
+	
+    <div class="container">
+      <div class="content">
+		${self.flash_messages()}
+   		${next.body()}
+      </div>
+
+      <footer>
+      	<ul style="list-style-type: none; margin: 0;">
+      		<li>
+      			<h4>Credits:</h4>
+      		</li>
+      		<li>
+      			<a href="http://www.pylonsproject.org/" target="_blank">
+      				Pyramid Python Web Framework</a>
+      		</li>
+      		<li>
+      			<a href="http://www.sqlalchemy.org/" target="_blank">
+      				SQLAlchemy The Python SQL Toolkit and Object Relational Mapper</a>
+      		</li>
+      		<li>
+      			<a href="http://www.makotemplates.org/" target="_blank">
+      				Mako Templates for Python</a>
+      		</li>
+      		<li>
+      			<a href="http://twitter.github.com/bootstrap/" target="_blank">
+      				Bootstrap, from Twitter CSS and javascript framework</a>
+      		</li>
+      		<li>
+      			<a href="http://mysql.com" target="_blank">MySQL Database</a>
+      		</li>
+      	</ul>
+      	<br />
+      	<br />
+      	<br />
+        <p>
+        	Customers App Demo ver: 1.0 Copyright &copy; 2011 Cem Ikta, 
+        	<a href="http://devsniper.com" target="_blank">devsniper.com</a>.
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+	
+</body>
+</html>
+
+<%def name="flash_messages()">
+	% if request.session.peek_flash():
+	
+		<% flash = request.session.pop_flash() %>
+		% for message in flash:
+		<div class="alert-message ${message.split(';')[0]} fade in" data-alert="alert">
+			<a class="close" href="#">&times;</a>
+			<p>
+				${message.split(";")[1]}<br>
+			</p>
+		</div>
+		% endfor
+
+	% endif
+</%def>

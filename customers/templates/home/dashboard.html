@@ -1,0 +1,35 @@
+<%inherit file="/base/index.html" />
+
+<div class="page-header">
+  	<h1>${dashboard}</h1>
+</div>
+
+<div class="row show-grid">
+	<div class="span5">
+		<h4>Customers</h4>
+		<a class="btn" style="margin-right:10px; height:15px;" 
+			href="${request.route_url('customer_list')}">View Customers »</a>
+		<br/>	
+		<br/>	
+		<a class="btn primary" style="margin-right:10px; height:15px;" 
+			href="${request.route_url('customer_new')}">Add New Customer »</a>
+	</div>
+	<div class="span4">
+		<h4>Categories</h4>
+		<a class="btn" style="margin-right:10px; height:15px;" 
+			href="${request.route_url('category_list')}">View Categories »</a>
+		<br/>	
+		<br/>	
+		<a class="btn primary" style="margin-right:10px; height:15px;" 
+			href="${request.route_url('category_new')}">Add New Category »</a>
+	</div>
+	<div class="span4">
+		<h4>Countries</h4>
+		<a class="btn" style="margin-right:10px; height:15px;" 
+			href="${request.route_url('country_list')}">View Countries »</a>
+		<br/>	
+		<br/>	
+		<a class="btn primary" style="margin-right:10px; height:15px;" 
+			href="${request.route_url('country_new')}">Add New Country »</a>
+	</div>
+</div>
