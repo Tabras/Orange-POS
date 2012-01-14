@@ -1,8 +1,8 @@
-from customers.models import Country
-from customers.models import DBSession
+from customers.models import Country, DBSession
 from formencode import validators
 from formencode.schema import Schema
 from pyramid.httpexceptions import HTTPFound
+from pyramid.renderers import render_to_response
 from pyramid.view import view_config
 from pyramid_simpleform import Form
 from pyramid_simpleform.renderers import FormRenderer
@@ -21,7 +21,7 @@ class CountryForm(Schema):
     code = validators.MaxLength(2, not_empty=True)  
     name = validators.String(not_empty=True)    
 
-@view_config(route_name="country_list", renderer="country/list.html")
+@view_config(route_name="country_list")
 def list(request):
     """countries list """
     search = request.params.get("search", "")
@@ -48,7 +48,16 @@ def list(request):
                      items_per_page=10, 
                      url=page_url)
     
-    return {"countries": countries}
+    if "partial" in request.params:
+        # Render the partial list page
+        return render_to_response("country/listPartial.html",
+                                  {"countries": countries},
+                                  request=request)
+    else:
+        # Render the full list page
+        return render_to_response("country/list.html",
+                                  {"countries": countries},
+                                  request=request)
 
 @view_config(route_name="country_search")
 def search(request):

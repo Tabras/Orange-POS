@@ -1,6 +1,5 @@
 <%inherit file="/base/index.html" />
-<%namespace file="/base/confirmModal.html" import="delete_modal"/>
-<%namespace file="/base/uiHelpers.html" import="pager"/>
+<%namespace file="listPartial.html" name="listPartial" import="*"/>
 
 <div class="page-header">
 	<h1 class="pull-left">Countries</h1>
@@ -17,82 +16,7 @@
 
 <div class="row">
 	<div class="span14">
-	% if len(countries):
-		<table class="condensed-table zebra-striped sortable">
-			<thead>
-				<tr>
-					<th style="width: 200px;">
-						${self.sortable('code')}
-					</th>
-					<th>
-						${self.sortable('name')}
-					</th>
-					<th style="width: 130px;"></th>
-				</tr>
-			</thead>
-			<tbody>
-				% for item in countries:
-		        <tr>
-			        <td valign="top">
-						<a href="/countries/${item.id}/edit">       	
-			            	${item.code}
-			        	</a>
-			        </td>
-			        <td valign="top">
-						<a href="/countries/${item.id}/edit">       	
-			        		${item.name}
-			        	</a>
-			        </td>
-			        <td valign="top">
-			        	<a class="btn" href="/countries/${item.id}/edit" style="height: 14px;">
-			        		Edit
-			        	</a>
-			        	<a class="btn" style="height: 14px;" data-controls-modal="confirm-modal" 
-			        		data-backdrop="true" data-keyboard="true" 
-			        		href="javascript:;" 
-			        		onclick="$('#confirm-modal #delete').attr('href', 
-			        			'/countries/' + ${item.id} + '/delete');">
-							Delete
-			        	</a>
-			        </td>
-				</tr>
-				% endfor
-			</tbody>
-		</table>
-		
-		## pager	
-	    ${pager(countries)}
-		
-	% else:
-	<p>
-		Countries not found!
-	</p>
-	% endif
-
-	## delete confirm modal dialog	
-    ${delete_modal("Are you sure you want to delete this country?")}
-    
+	    <%include file="listPartial.html"/>
   </div>
 </div>
 
-<%def name="sortable(column)">
-    <% sort_column = request.GET.get("sort") if request.GET.get("sort") else "code" %>
-    <% sort_direction = request.GET.get("direction") if request.GET.get("direction") else "asc" %>  
-	<% css_class = "" %>
-	% if (column == sort_column):
-		<% css_class = "current " + sort_direction %>
-	% endif
-	
-	<% direction = "asc" %>
-	% if (column == sort_column and sort_direction == "asc"):
-		<% direction = "desc" %>
-	% endif
-
-	% if column == "code":
-		<a href="${request.route_url('country_list')}?sort=${column}&direction=${direction}" 
-			class="${css_class}">Country Code</a>
-	% else:
-		<a href="${request.route_url('country_list')}?sort=${column}&direction=${direction}" 
-			class="${css_class}">Name</a>
-	% endif
-</%def>

@@ -1,8 +1,8 @@
-from customers.models import Category
-from customers.models import DBSession
+from customers.models import Category, DBSession
 from formencode import validators
 from formencode.schema import Schema
 from pyramid.httpexceptions import HTTPFound
+from pyramid.renderers import render_to_response
 from pyramid.view import view_config
 from pyramid_simpleform import Form
 from pyramid_simpleform.renderers import FormRenderer
@@ -19,7 +19,7 @@ class CategoryForm(Schema):
     allow_extra_fields = True
     name = validators.String(not_empty=True)
 
-@view_config(route_name="category_list", renderer="category/list.html")
+@view_config(route_name="category_list")
 def list(request):
     """categories list """
     search = request.params.get("search", "")
@@ -44,8 +44,17 @@ def list(request):
                      page=int(request.params.get("page", 1)), 
                      items_per_page=10, 
                      url=page_url)
-
-    return {"categories": categories}
+    
+    if "partial" in request.params:
+        # Render the partial list page
+        return render_to_response("category/listPartial.html",
+                                  {"categories": categories},
+                                  request=request)
+    else:
+        # Render the full list page
+        return render_to_response("category/list.html",
+                                  {"categories": categories},
+                                  request=request)
 
 @view_config(route_name="category_search")
 def search(request):
