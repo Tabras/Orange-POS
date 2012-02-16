@@ -9,8 +9,8 @@ Mako Templates ver: 0.5.0
 Bootstrap, from Twitter ver: 1.4.0
 MySQL Database ver: 5.1
 
-
 For more details: www.devsniper.com
 
+its free for personal and commercial use!
 
 
