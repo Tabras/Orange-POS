@@ -6,19 +6,16 @@
 		<table class="condensed-table zebra-striped sortable">
 			<thead>
 				<tr>
-					<th style="width: 300px;">
-						${self.sortable('company_name')}
+					<th>
+						${self.sortable('first_name')}
 					</th>
 					<th>
-						${self.sortable('contact_first_name')}
+						${self.sortable('middle_name')}
 					</th>
 					<th>
-						${self.sortable('contact_last_name')}
+						${self.sortable('last_name')}
 					</th>
-					<th>
-						${self.sortable('category')}
-					</th>
-					<th style="width: 130px;"></th>
+									<th style="width: 130px;"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -26,24 +23,20 @@
 		        <tr>
 			        <td valign="top">
 						<a href="/customers/${item.id}/edit">       	
-			            	${item.company_name}
+			            	${item.first_name}
 			        	</a>
 			        </td>
 			        <td valign="top">
-						<a href="/customers/${item.id}/edit">       	
-			        		${item.contact_first_name}
+			        	<a href="/customers/${item.id}/edit">
+			        		${item.middle_name if item.middle_name else 'none'}
 			        	</a>
 			        </td>
-			        <td valign="top">
+			        			        <td valign="top">
 						<a href="/customers/${item.id}/edit">       	
-			        		${item.contact_last_name}
+			        		${item.last_name}
 			        	</a>
 			        </td>
-			        <td valign="top">
-						<a href="/customers/${item.id}/edit">       	
-			        		${item.category.name}
-			        	</a>
-			        </td>
+			       
 			        <td valign="top">
 			        	<a class="btn" href="/customers/${item.id}/edit" style="height: 14px;">
 			        		Edit
@@ -62,8 +55,7 @@
 		</table>
 		
 		## pager	
-	    ${pager(customers)}
-	    
+	        ${pager(customers)} 
 	% else:
 	<p>
 		Customers not found!
@@ -88,18 +80,15 @@
 		<% direction = "desc" %>
 	% endif
 
-	% if column == "company_name":
-		<a href="${request.route_url('customer_list')}?sort=${column}&direction=${direction}" 
-			class="${css_class}">Company Name</a>
-	% elif column == "contact_first_name":
+	% if column == "first_name":
 		<a href="${request.route_url('customer_list')}?sort=${column}&direction=${direction}" 
 			class="${css_class}">First Name</a>
-	% elif column == "contact_last_name":
+	% elif column == "middle_name":
+		<a href="${request.route_url('customer_list')}?sort=${column}&direction=${direction}" 
+			class="${css_class}">Middle Name</a>
+	% elif column == "last_name":
 		<a href="${request.route_url('customer_list')}?sort=${column}&direction=${direction}" 
 			class="${css_class}">Last Name</a>
-	% else:
-		<a href="${request.route_url('customer_list')}?sort=${column}&direction=${direction}" 
-			class="${css_class}">Category</a>
 	% endif
 </%def>
 

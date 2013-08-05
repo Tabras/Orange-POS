@@ -8,8 +8,8 @@
 		<% dotdot_attr={"class": "btn small disabled"} %>
 		
 		${items.pager(format="$link_previous ~2~ $link_next", 
-					  symbol_previous="«", 
-					  symbol_next="»",
+					  symbol_previous="Previous", 
+					  symbol_next="Next",
 					  link_attr=link_attr,
 					  curpage_attr=curpage_attr,
 				      dotdot_attr=dotdot_attr,
@@ -20,8 +20,8 @@
 <%doc>
 	checks validate errors, if any validate errors, adds message as span
 </%doc> 
-<%def name="validate_errors(field)">
-	% for message in form.errors_for(field):
+<%def name="validate_errors(field, formName)">
+	% for message in formName.errors_for(field):
 		% if (message is not None):
 			<span class="help-inline">${message}</span>	
 		% endif

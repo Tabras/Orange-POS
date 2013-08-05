@@ -1,137 +1,99 @@
 <%namespace file="/base/uiHelpers.html" import="validate_errors"/>
 
-${form.csrf_token()}
+
+
 
 <ul data-tabs="tabs" class="tabs">
 	<li class="active"><a href="#general">General</a></li>
-	<li class=""><a href="#address">Address</a></li>
-	<li class=""><a href="#communication">Communication</a></li>
-	<li class=""><a href="#notes">Notes</a></li>
+	<li class=""><a href="#location">Address</a></li>
+	<li class=""><a href="#email">Email Address</a></li>
+	<li class=""><a href="#phone">Phone Number</a></li>
 </ul>
 
 <div class="tab-content" id="my-tab-content">
+
+
+
 	<div id="general" class="tab-pane active">
-		<div class="${'clearfix error' if form.errors_for('company_name') else 'clearfix'}">
-			<label for="company_name">Company Name</label>
+		${generalForm.begin()}
+		${generalForm.csrf_token()}
+			<div class="${'clearfix_error' if generalForm.errors_for('first_name') else 'clearfix'}">
+			<label for="first_name">First Name</label>
 			<div class="input">
-				${form.text("company_name", class_="xlarge", maxlength="100")}
-				${validate_errors("company_name")}
+				${generalForm.text("first_name", class_="small", maxlength="50")}
+				${validate_errors("first_name", generalForm)}
 			</div>
 		</div>
-		<div class="clearfix">
-			<label for="category_id">Category</label>
+		<div class="${'clearfix error' if generalForm.errors_for('middle_name') else 'clearfix'}">
+			<label for="middle_name">Middle Name</label>
 			<div class="input">
-			    ${form.select("category_id",
-					id="category_id",
- 			        options=categories)}
+				${generalForm.text("middle_name", class_="xlarge", maxlength="50")}
+				${validate_errors("middle_name", generalForm)}
 			</div>
 		</div>
-		<div class="clearfix">
-			<label for="contact_title">Title</label>
+		<div class="${'clearfix error' if generalForm.errors_for('last_name') else 'clearfix'}">
+			<label for="last_name">Last Name</label>
 			<div class="input">
-				${form.text("contact_title", class_="small", maxlength="50")}
+				${generalForm.text("last_name", class_="xlarge", maxlength="50")}
+				${validate_errors("last_name", generalForm)}
 			</div>
 		</div>
-		<div class="${'clearfix error' if form.errors_for('contact_first_name') else 'clearfix'}">
-			<label for="contact_first_name">First Name</label>
+		<div class="actions">
+			<input type="submit" name="general_submitted" value="Save" class="btn primary">
+			<input type="reset" name="general_reset" value="Cancel" class="btn"
+			onclick="location.href='${request.route_url('customer_list')}'">
+		</div>
+		${generalForm.end()}
+	</div>	
+
+	<div id="location" class="tab-pane">
+		${locationForm.begin()}
+		${locationForm.csrf_token()}
+		<div class="${'clearfix_error' if locationForm.errors_for('street') else 'clearfix'}">
+			<label for="street">Street</label>
 			<div class="input">
-				${form.text("contact_first_name", class_="xlarge", maxlength="50")}
-				${validate_errors("contact_first_name")}
+			${locationForm.text("street", class_="xlarge")}
+			${validate_errors("street", locationForm)}
 			</div>
 		</div>
-		<div class="${'clearfix error' if form.errors_for('contact_last_name') else 'clearfix'}">
-			<label for="contact_last_name">Last Name</label>
-			<div class="input">
-				${form.text("contact_last_name", class_="xlarge", maxlength="50")}
-				${validate_errors("contact_last_name")}
-			</div>
-		</div>
-	</div>
-	
-	<div id="address" class="tab-pane">
-		<div class="clearfix">
-			<label for="address">Address</label>
-			<div class="input">
-				${form.textarea("address", class_="xlarge", cols="40", rows="3")}
-			</div>
-		</div>
-		<div class="clearfix">
+		<div class="${'clearfix_error' if locationForm.errors_for('city') else 'clearfix'}">
 			<label for="city">City</label>
 			<div class="input">
-				${form.text("city", class_="xlarge", maxlength="50")}
+				${locationForm.text("city", class_="xlarge")}
+				${validate_errors("city", locationForm)}
 			</div>
 		</div>
-		<div class="clearfix">
-			<label for="region">State/Province</label>
+		<div class="${'clearfix_error' if locationForm.errors_for('state') else 'clearfix'}">
+			<label for="state">State</label>
 			<div class="input">
-				${form.text("region", class_="xlarge", maxlength="50")}
+				${locationForm.text("state", class_="xlarge")}
+				${validate_errors("state", locationForm)}
 			</div>
 		</div>
-		<div class="clearfix">
-			<label for="postal_code">ZIP/Postal Code</label>
+		<div class="${'clearfix_error' if locationForm.errors_for('zip') else 'clearfix'}">
+			<label for="zip">Zip Code</label>
 			<div class="input">
-				${form.text("postal_code", class_="xlarge", maxlength="50")}
+				${locationForm.text("zip", class_="xlarge")}
+				${validate_errors("zip", locationForm)}
 			</div>
 		</div>
-		<div class="clearfix">
-			<label for="country_id">Country</label>
-			<div class="input">
-			    ${form.select("country_id", 
-			    	id="country_id",
-			        options=countries, 
-			        prompt="Select Country")}
-			</div>
-		</div>
+		${locationForm.text("updated_at", class_="xlarge")}
+		
+		<div class="actions">
+			<input type="submit" name="location_submitted" value="Save" class="btn primary">
+			<input type="reset" name="location_reset" value="Cancel" class="btn" 
+				onclick="location.href='${request.route_url('customer_list')}'">
+	    </div>
+
+		${locationForm.end()}
 	</div>
-	
-	<div id="communication" class="tab-pane">
-		<div class="clearfix">
-			<label for="phone">Phone</label>
-			<div class="input">
-				${form.text("phone", class_="xlarge", maxlength="50")}
-			</div>
-		</div>
-		<div class="clearfix">
-			<label for="fax">Fax</label>
-			<div class="input">
-				${form.text("fax", class_="xlarge", maxlength="50")}
-			</div>
-		</div>
-		<div class="clearfix">
-			<label for="mobile">Mobile</label>
-			<div class="input">
-				${form.text("mobile", class_="xlarge", maxlength="50")}
-			</div>
-		</div>
-		<div class="clearfix">
-			<label for="email">E-Mail</label>
-			<div class="input">
-  				<div class="input-prepend">
-					<span class="add-on">@</span>
-					${form.text("email", class_="xlarge", maxlength="50", style="width: 244px;")}
-  				</div>
-			</div>
-  		</div>
-		<div class="clearfix">
-			<label for="homepage">Homepage</label>
-			<div class="input">
-				${form.text("homepage", class_="xlarge", maxlength="50")}
-			</div>
-		</div>
-		<div class="clearfix">
-			<label for="skype">Skype</label>
-			<div class="input">
-				${form.text("skype", class_="xlarge", maxlength="50")}
-			</div>
-		</div>
-    </div>
-	<div id="notes" class="tab-pane">
-		<div class="clearfix">
-			<label for="notes">Notes</label>
-			<div class="input">
-				${form.textarea("notes", class_="xlarge", cols="40", rows="10")}
-			</div>
-		</div>
-	</div>
+
+		<div class="actions">
+			<input type="submit" name="form_submitted" value="Save" class="btn primary">
+			<input type="reset" name="form_reset" value="Cancel" class="btn" 
+				onclick="location.href='${request.route_url('customer_list')}'">
+	    </div>
+
+
     
 </div>

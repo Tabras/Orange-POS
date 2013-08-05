@@ -38,26 +38,38 @@ def main(global_config, **settings):
     config.add_route("home", "/")
     config.add_route("home_dashboard", "/home/dashboard")
     
-    # country routes
-    config.add_route("country_list", "/countries/list")
-    config.add_route("country_search", "/countries/search")
-    config.add_route("country_new", "/countries/new")
-    config.add_route("country_edit", "/countries/{id}/edit")
-    config.add_route("country_delete", "/countries/{id}/delete")
-    
-    # category routes
-    config.add_route("category_list", "/categories/list")
-    config.add_route("category_search", "/categories/search")
-    config.add_route("category_new", "/categories/new")
-    config.add_route("category_edit", "/categories/{id}/edit")
-    config.add_route("category_delete", "/categories/{id}/delete")
-    
     # customer routes
     config.add_route("customer_list", "/customers/list")
     config.add_route("customer_search", "/customers/search")
     config.add_route("customer_new", "/customers/new")
+    config.add_route("customer_orders", "/customers/{id}/orders")
     config.add_route("customer_edit", "/customers/{id}/edit")
     config.add_route("customer_delete", "/customers/{id}/delete")
+    
+    # checkout
+    config.add_route("checkout", "/checkout")
+    
+    # order routes
+    config.add_route("order_details", "/orders/{id}")
+    config.add_route("orders_todo", "/orders/todo")
+    
+    # reports
+    config.add_route("reports", "/reports")
+    
+    # item routes
+    config.add_route("items_list", "/items/list")
+    config.add_route("items_search", "/items/search")
+    config.add_route("items_edit", "/items/{id}/edit")
+    config.add_route("items_delete", "/items/{id}/delete")
+    config.add_route("items_new", "/items/new")
+    
+    # service routes
+    config.add_route("services_list", "/services/list")
+    config.add_route("services_search", "/services/search")
+    config.add_route("services_edit", "/services/{id}/edit")
+    config.add_route("services_delete", "/services/{id}/delete")
+    config.add_route("services_new", "/services/new")
+    
     
     config.scan()
     return config.make_wsgi_app()
